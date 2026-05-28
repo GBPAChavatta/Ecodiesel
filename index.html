@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ecodiesel — Simulador de Arquitetura de Câmeras Inteligentes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-theme">
+    <!-- Grid Background Layer -->
+    <div class="grid-overlay"></div>
+    <div class="radial-glow"></div>
+
+    <header class="app-header">
+        <div class="logo-area">
+            <span class="badge-status-glow">PROPOSTA 126-26</span>
+            <h1>Ecodiesel <span class="thin">Smart Cam Architecture</span></h1>
+        </div>
+
+        <div class="simulator-controls">
+            <div class="status-indicator">
+                <span class="status-pulse-dot" id="status-dot"></span>
+                <span class="status-text" id="status-text">Rede: Online (Lucas do Rio Verde)</span>
+            </div>
+            <button id="add-camera-btn" class="btn btn-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                    <circle cx="12" cy="13" r="4" />
+                </svg>
+                <span>+ Câmera</span>
+            </button>
+            <button id="toggle-network-btn" class="btn btn-primary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                </svg>
+                <span>Derrubar Internet</span>
+            </button>
+            <button id="trigger-event-btn" class="btn btn-secondary">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <line x1="12" y1="9" x2="12" y2="13" />
+                    <line x1="12" y1="17" x2="12.01" y2="17" />
+                </svg>
+                <span>Forçar Alerta (Invasão)</span>
+            </button>
+        </div>
+    </header>
+
+    <nav class="view-navigation">
+        <button class="nav-tab active" data-view="simulator">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="3" width="7" height="9"></rect>
+                <rect x="14" y="3" width="7" height="5"></rect>
+                <rect x="14" y="12" width="7" height="9"></rect>
+                <rect x="3" y="16" width="7" height="5"></rect>
+            </svg>
+            <span>Arquitetura & Simulação</span>
+        </button>
+        <button class="nav-tab" data-view="hardware-costs" id="tab-hardware-costs">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+                <line x1="6" y1="6" x2="6.01" y2="6"></line>
+                <line x1="6" y1="18" x2="6.01" y2="18"></line>
+            </svg>
+            <span>Custos de Hardware & Escala</span>
+        </button>
+        <button class="nav-tab" data-view="schedule">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <span>Cronograma do Piloto (12 Semanas)</span>
+        </button>
+    </nav>
+
+    <main class="main-container" id="simulator-main">
+        <!-- Diagram Area -->
+        <section class="diagram-section card">
+            <div class="card-header">
+                <h2>Fluxo de Processamento Edge-to-Cloud</h2>
+                <p>Clique em qualquer componente para inspecionar os detalhes técnicos e logs de auditoria.</p>
+            </div>
+
+            <div class="canvas-container">
+                <!-- SVG Connections layer -->
+                <svg class="connection-svg" id="connection-svg" width="100%" height="100%">
+                    <defs>
+                        <!-- Glow filters -->
+                        <filter id="glow-green" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        <filter id="glow-red" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+                        <filter id="glow-purple" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feMerge>
+                                <feMergeNode in="blur" />
+                                <feMergeNode in="SourceGraphic" />
+                            </feMerge>
+                        </filter>
+
+                        <!-- Gradient markers -->
+                        <linearGradient id="edge-to-cloud-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#10b981" />
+                            <stop offset="50%" stop-color="#3b82f6" />
+                            <stop offset="100%" stop-color="#6366f1" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- SVG Paths (will be updated or initialized dynamically by js to adapt to screen resized coordinates if needed, or static percentage paths) -->
+                    <!-- Path from Predio A to Tunnel -->
+                    <path class="connection-path active-flow" id="path-predioA-tunnel" d="" fill="none"
+                        stroke="url(#edge-to-cloud-grad)" stroke-width="3" filter="url(#glow-green)" />
+                    <!-- Path from Predio B to Tunnel -->
+                    <path class="connection-path active-flow" id="path-predioB-tunnel" d="" fill="none"
+                        stroke="url(#edge-to-cloud-grad)" stroke-width="3" filter="url(#glow-green)" />
+                    <!-- Path from Tunnel to Cloud -->
+                    <path class="connection-path active-flow" id="path-tunnel-cloud" d="" fill="none" stroke="#6366f1"
+                        stroke-width="3" filter="url(#glow-purple)" />
+
+                    <!-- Pulsing animation dots (created dynamically by js) -->
+                </svg>
+
+                <div class="architecture-grid">
+                    <!-- Edge Node Column -->
+                    <div class="grid-column column-edge" id="edge-column">
+                        <div class="column-title-badge edge">EDGE ON-PREMISE (Planta)</div>
+
+                        <!-- Seletor de Prédios (Abas) -->
+                        <div class="buildings-tabs-container" id="buildings-tabs-container">
+                            <!-- Injetado dinamicamente via JS -->
+                        </div>
+
+                        <!-- Pipeline do Prédio Ativo -->
+                        <div class="building-node" id="active-building-node">
+                            <div class="building-header">
+                                <h3 id="active-building-name">Prédio A <span class="subtext"
+                                        id="active-building-subtitle">Almoxarifado</span></h3>
+                                <div class="cams-count" id="active-building-cams">12 Câmeras</div>
+                            </div>
+
+                            <div class="node-components">
+                                <div class="arch-node element-clickable" data-node="cameras-a" id="node-cameras">
+                                    <div class="node-icon">📹</div>
+                                    <div class="node-info">
+                                        <h4>Câmeras & NVR</h4>
+                                        <p>RTSP Local Full HD</p>
+                                    </div>
+                                </div>
+
+                                <div class="node-arrow">↓</div>
+
+                                <div class="arch-node element-clickable" data-node="frigate-a" id="node-frigate">
+                                    <div class="node-icon">📦</div>
+                                    <div class="node-info">
+                                        <h4>Frigate NVR</h4>
+                                        <p>Ingestão & Descarte</p>
+                                    </div>
+                                </div>
+
+                                <div class="node-arrow">↓</div>
+
+                                <div class="arch-node element-clickable" data-node="yolo-a" id="node-yolo">
+                                    <div class="node-icon">🧠</div>
+                                    <div class="node-info">
+                                        <h4>YOLOv8 + TensorRT</h4>
+                                        <p>Inferência local em GPU</p>
+                                    </div>
+                                </div>
+
+                                <div class="node-arrow">↓</div>
+
+                                <div class="arch-node element-clickable" data-node="fastapi-a" id="node-fastapi">
+                                    <div class="node-icon">⚙️</div>
+                                    <div class="node-info">
+                                        <h4>Motor FastAPI</h4>
+                                        <p>Filtro Falso Positivo</p>
+                                    </div>
+                                </div>
+
+                                <div class="node-arrow">↓</div>
+
+                                <div class="arch-node element-clickable queue-node" data-node="queue-a" id="node-queue">
+                                    <div class="node-icon">🗄️</div>
+                                    <div class="node-info">
+                                        <h4>Fila SQLite Local</h4>
+                                        <p class="queue-status">Status: Vazia</p>
+                                    </div>
+                                    <div class="queue-counter" id="active-queue-counter">0</div>
+                                </div>
+
+                                <div class="node-arrow">↓</div>
+
+                                <div class="arch-node element-clickable" data-node="nodered-a" id="node-nodered">
+                                    <div class="node-icon">🔌</div>
+                                    <div class="node-info">
+                                        <h4>Node-RED</h4>
+                                        <p>Túnel TLS de Saída</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Middle security/network column -->
+                    <div class="grid-column column-security">
+                        <div class="column-title-badge security">SEGURANÇA</div>
+
+                        <div class="security-connector element-clickable" data-node="security-tunnel"
+                            id="node-security-tunnel">
+                            <div class="shield-icon">🛡️</div>
+                            <h4>Túnel de Saída Seguro</h4>
+                            <p>TLS 1.3 / Sem Ingress</p>
+                            <span class="link-status-badge online" id="link-status">LINK SEGURO ATIVO</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Node Column -->
+                    <div class="grid-column column-cloud" id="cloud-column">
+                        <div class="column-title-badge cloud">NUVEM (Gestão)</div>
+
+                        <div class="cloud-stack">
+                            <div class="arch-node element-clickable" data-node="kafka" id="node-kafka">
+                                <div class="node-icon">📥</div>
+                                <div class="node-info">
+                                    <h4>Broker Kafka Central</h4>
+                                    <p>Ingestão Resiliente</p>
+                                </div>
+                            </div>
+
+                            <div class="node-arrow">↓</div>
+
+                            <div class="arch-node element-clickable" data-node="cloud-backend" id="node-cloud-backend">
+                                <div class="node-icon">💻</div>
+                                <div class="node-info">
+                                    <h4>Backend App</h4>
+                                    <p>Orquestrador e API</p>
+                                </div>
+                            </div>
+
+                            <div class="node-arrow">↓</div>
+
+                            <div class="cloud-db-storage">
+                                <div class="arch-node element-clickable half-width" data-node="postgresql"
+                                    id="node-postgresql">
+                                    <div class="node-icon">🗃️</div>
+                                    <div class="node-info">
+                                        <h4>PostgreSQL</h4>
+                                        <p>Metadados/Logs</p>
+                                    </div>
+                                </div>
+                                <div class="arch-node element-clickable half-width" data-node="object-storage"
+                                    id="node-object-storage">
+                                    <div class="node-icon">☁️</div>
+                                    <div class="node-info">
+                                        <h4>Storage Clipes</h4>
+                                        <p>S3 / GCS (Excedentes)</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="node-arrow">↓</div>
+
+                            <div class="arch-node element-clickable" data-node="grafana" id="node-grafana">
+                                <div class="node-icon">📊</div>
+                                <div class="node-info">
+                                    <h4>Grafana & Observabilidade</h4>
+                                    <p>Painel de Métricas e Frota</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- User Client Column -->
+                    <div class="grid-column column-clients">
+                        <div class="column-title-badge client">RESPONSÁVEIS</div>
+
+                        <div class="client-stack">
+                            <div class="arch-node element-clickable" data-node="mobile-app" id="node-mobile-app">
+                                <div class="node-icon">📱</div>
+                                <div class="node-info">
+                                    <h4>App Móvel / Canais</h4>
+                                    <p>Alertas Críticos PUSH</p>
+                                </div>
+                            </div>
+
+                            <div class="phone-mockup">
+                                <div class="phone-header">
+                                    <span class="speaker"></span>
+                                </div>
+                                <div class="phone-screen">
+                                    <div class="phone-app-title">Ecodiesel Alertas</div>
+                                    <div class="alerts-feed" id="alerts-feed">
+                                        <div class="mock-alert-item empty-state">
+                                            Nenhum alerta recebido ainda. Force um evento para simular.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar Info Area -->
+        <aside class="details-sidebar card" id="details-sidebar">
+            <div class="card-header">
+                <h2 id="sidebar-title">Detalhes do Componente</h2>
+                <p id="sidebar-subtitle">Selecione uma peça da arquitetura para ler os detalhes técnicos.</p>
+            </div>
+
+            <div class="sidebar-content" id="sidebar-content-body">
+                <div class="empty-selection-state">
+                    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10" />
+                        <path d="M12 16v-4" />
+                        <path d="M12 8h.01" />
+                    </svg>
+                    <p>Clique em qualquer caixa do fluxo de processamento para examinar sua função técnica no projeto.
+                    </p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Metrics and Savings Dashboard -->
+    <section class="metrics-dashboard" id="simulator-metrics">
+        <div class="metric-card card">
+            <div class="metric-value" id="network-egress">0.05 KB/s</div>
+            <div class="metric-label">Tráfego de Upload de Vídeo (Nuvem)</div>
+            <div class="metric-subtext">Apenas alertas estruturados trafegam na WAN</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar green" style="width: 1%"></div>
+            </div>
+        </div>
+
+        <div class="metric-card card">
+            <div class="metric-value text-strike">52.8 GB/dia</div>
+            <div class="metric-value highlight" id="saved-bandwidth">0.02 GB/dia</div>
+            <div class="metric-label">Dados Enviados por Câmera</div>
+            <div class="metric-subtext">Economia de banda: <strong>99.96%</strong></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 0.1%"></div>
+            </div>
+        </div>
+
+        <div class="metric-card card">
+            <div class="metric-value" id="total-cameras-metric">32 Câmeras</div>
+            <div class="metric-label">Escala Total da Frota</div>
+            <div class="metric-subtext" id="total-buildings-metric">1 Prédio Monitorado</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar blue" id="expansion-progress-bar" style="width: 8%"></div>
+            </div>
+        </div>
+
+        <div class="metric-card card log-card">
+            <div class="card-header">
+                <h3>Console de Auditoria Local</h3>
+            </div>
+            <div class="log-console" id="log-console">
+                <div class="log-entry system">[SISTEMA] Inicializando simulação de arquitetura Ecodiesel...</div>
+                <div class="log-entry system">[SISTEMA] Nós do Prédio A e Prédio B online na VLAN 10.</div>
+                <div class="log-entry green">[REDE] Túnel seguro TLS 1.3 estabelecido com o Broker Kafka na nuvem.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Development Schedule Section -->
+    <section class="schedule-container hidden" id="schedule-section">
+        <div class="schedule-layout">
+            <div class="schedule-gantt card">
+                <div class="card-header schedule-header-flex">
+                    <div>
+                        <h2>Roadmap & Cronograma do Piloto (Fase 1)</h2>
+                        <p>Estrutura de 12 semanas dividida em 6 Sprints com entregas incrementais no cliente.</p>
+                    </div>
+                    <div class="schedule-controls">
+                        <span class="switch-label">Incluir App Móvel (+158h)</span>
+                        <label class="schedule-switch">
+                            <input type="checkbox" id="toggle-mobile-flow" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="gantt-chart">
+                    <div class="gantt-timeline-header">
+                        <div class="timeline-spacer">Etapa / Sprint</div>
+                        <div class="timeline-weeks">
+                            <span>S1-2</span>
+                            <span>S3-4</span>
+                            <span>S5-6</span>
+                            <span>S7-8</span>
+                            <span>S9-10</span>
+                            <span>S11-12</span>
+                        </div>
+                    </div>
+
+                    <div class="gantt-rows">
+                        <!-- Sprint 1 Row -->
+                        <div class="gantt-row element-clickable-sprint" data-sprint="1">
+                            <div class="gantt-label">
+                                <span class="sprint-number">Sprint 1</span>
+                                <span class="sprint-name">Discovery & Setup Edge</span>
+                            </div>
+                            <div class="gantt-bar-wrapper">
+                                <div class="gantt-bar sprint-color-edge" style="grid-column: 1 / 2;">
+                                    <span>77h • Planta</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sprint 2 Row -->
+                        <div class="gantt-row element-clickable-sprint" data-sprint="2">
+                            <div class="gantt-label">
+                                <span class="sprint-number">Sprint 2</span>
+                                <span class="sprint-name">Core IA & TensorRT</span>
+                            </div>
+                            <div class="gantt-bar-wrapper">
+                                <div class="gantt-bar sprint-color-ia" style="grid-column: 2 / 3;">
+                                    <span>77h • Inferência</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sprint 3 Row -->
+                        <div class="gantt-row element-clickable-sprint" data-sprint="3">
+                            <div class="gantt-label">
+                                <span class="sprint-number">Sprint 3</span>
+                                <span class="sprint-name" id="sprint-name-3">Regras Edge & Setup App</span>
+                            </div>
+                            <div class="gantt-bar-wrapper">
+                                <div class="gantt-bar sprint-color-logica" style="grid-column: 3 / 4;"
+                                    id="sprint-bar-3">
+                                    <span>110h • Edge & App</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sprint 4 Row -->
+                        <div class="gantt-row element-clickable-sprint" data-sprint="4">
+                            <div class="gantt-label">
+                                <span class="sprint-number">Sprint 4</span>
+                                <span class="sprint-name" id="sprint-name-4">Túnel TLS & Auth/MFA</span>
+                            </div>
+                            <div class="gantt-bar-wrapper">
+                                <div class="gantt-bar sprint-color-conexao" style="grid-column: 4 / 5;"
+                                    id="sprint-bar-4">
+                                    <span>110h • Rede & Auth</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sprint 5 Row -->
+                        <div class="gantt-row element-clickable-sprint" data-sprint="5">
+                            <div class="gantt-label">
+                                <span class="sprint-number">Sprint 5</span>
+                                <span class="sprint-name" id="sprint-name-5">API Cloud & Biometria/FaceID</span>
+                            </div>
+                            <div class="gantt-bar-wrapper">
+                                <div class="gantt-bar sprint-color-nuvem" style="grid-column: 5 / 6;" id="sprint-bar-5">
+                                    <span>120h • Cloud & Bio</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sprint 6 Row -->
+                        <div class="gantt-row element-clickable-sprint" data-sprint="6">
+                            <div class="gantt-label">
+                                <span class="sprint-number">Sprint 6</span>
+                                <span class="sprint-name" id="sprint-name-6">E2E com App & Homologação</span>
+                            </div>
+                            <div class="gantt-bar-wrapper">
+                                <div class="gantt-bar sprint-color-rollout" style="grid-column: 6 / 7;"
+                                    id="sprint-bar-6">
+                                    <span>116h • E2E & Rollout</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="schedule-summary-footer">
+                    <div class="resource-pill total" id="total-hours-metric"><strong>Horas de Desenvolvimento:</strong>
+                        610 Horas</div>
+                </div>
+            </div>
+
+            <aside class="sprint-details-sidebar card" id="sprint-sidebar">
+                <div class="card-header">
+                    <h2>Detalhamento da Sprint</h2>
+                    <p>Clique em qualquer Sprint do gráfico ao lado para analisar as tarefas e entregas.</p>
+                </div>
+
+                <div class="sprint-sidebar-content" id="sprint-sidebar-content">
+                    <div class="empty-selection-state">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#4b5563" stroke-width="1.5">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="16" y1="2" x2="16" y2="6"></line>
+                            <line x1="8" y1="2" x2="8" y2="6"></line>
+                            <line x1="3" y1="10" x2="21" y2="10"></line>
+                        </svg>
+                        <p>Selecione uma sprint no cronograma para carregar as informações do discovery técnico.</p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- Seção de Custos de Hardware & Escala -->
+    <section class="hardware-costs-container hidden" id="hardware-costs-section">
+        <div class="hardware-layout">
+            <div class="hardware-panel card">
+                <div class="card-header">
+                    <h2>Custos de Hardware & Escala (CAPEX)</h2>
+                    <p>Simule a escala de hardware de 1 até 14 nós (Edge Nodes) e compare as opções de infraestrutura
+                        física.</p>
+                </div>
+
+                <div class="hardware-controls-wrapper">
+                    <div class="control-group">
+                        <span class="control-label-static">Plataforma Homologada:</span>
+                        <span class="control-value-static">AMD AM5 (Alta Performance + 2x RTX 5070 Ti 16GB)</span>
+                    </div>
+
+                    <div class="control-group">
+                        <div class="slider-header">
+                            <label for="node-qty-slider">Quantidade de Nós (Servidores Edge):</label>
+                            <span class="node-qty-value" id="node-qty-display">1 Nó</span>
+                        </div>
+                        <input type="range" id="node-qty-slider" min="1" max="14" value="1" class="slider-premium">
+                        <div class="slider-limits">
+                            <span>1 Nó</span>
+                            <span>14 Nós (Frota Total)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hardware-table-container">
+                    <table class="hardware-table" id="hardware-components-table">
+                        <thead>
+                            <tr>
+                                <th>Componente</th>
+                                <th>Modelo Sugerido</th>
+                                <th>Loja Ref.</th>
+                                <th>Unitário (BRL)</th>
+                                <th>Qtd / Nó</th>
+                                <th>Total (BRL)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hardware-components-tbody">
+                            <!-- Injetado dinamicamente via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="hardware-summary-panel">
+                <div class="summary-card card border-highlight">
+                    <div class="summary-header">
+                        <h3>Resumo Consolidado</h3>
+                        <span class="badge-status-glow highlight">PROPOSTA DE ESCALA</span>
+                    </div>
+                    <div class="summary-metrics-grid">
+                        <div class="summary-metric">
+                            <span class="label">Nós Edge Selecionados</span>
+                            <span class="value" id="summary-nodes">1 Nó</span>
+                        </div>
+                        <div class="summary-metric">
+                            <span class="label">Capacidade Câmeras</span>
+                            <span class="value" id="summary-cams">32 Câmeras</span>
+                            <span class="subtext">Até 32-35 cams por nó</span>
+                        </div>
+                        <div class="summary-metric highlight-value">
+                            <span class="label">CAPEX Total Realista</span>
+                            <span class="value" id="summary-capex">R$ 27.750,00</span>
+                            <span class="subtext">Pagamento à vista (PIX)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-card card">
+                    <div class="summary-header">
+                        <h3>Comparativo de Viabilidade</h3>
+                    </div>
+                    <div class="viability-details">
+                        <div class="viability-row">
+                            <span>Orçamento Estimado Original:</span>
+                            <span class="value text-strike" id="summary-original-capex">R$ 19.050,00</span>
+                        </div>
+                        <div class="viability-row highlight-row">
+                            <span>Ajuste Orçamentário Necessário:</span>
+                            <span class="value warning" id="summary-savings">R$ 8.700,00 adicionais</span>
+                        </div>
+                    </div>
+                    <div class="viability-footer">
+                        <p id="viability-text">O <strong>Nó de Servidor AMD AM5 (Alta Performance)</strong> foi
+                            homologado como a plataforma de inferência padrão do projeto, garantindo estabilidade e
+                            refrigeração adequada para as 32 câmeras do piloto e expansões futuras.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="app-footer-credits">
+        <p>Projeto 126-26 — Ecodiesel (Lucas do Rio Verde/MT) | Desenvolvido por GBPA, 2026</p>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
