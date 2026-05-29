@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoDiesel — Apresentação de Negócios e Jornada do App</title>
+  <!-- SEO and Meta Tags -->
+  <meta name="description" content="Apresentação lúdica da jornada do cliente e sprints unificadas no aplicativo móvel para o projeto EcoDiesel.">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- Top Navigation Header -->
+    <header>
+      <div class="brand-section">
+        <div class="logo-icon" id="brand-logo" style="background: linear-gradient(135deg, #10b981, #065f46);">
+          <i class="fa-solid fa-mobile-screen-button"></i>
+        </div>
+        <div class="logo-text">
+          <h1>EcoDiesel Mobile App</h1>
+          <p>Jornada Lúdica do Cliente & Sprints Unificadas — Proposta Nº 126-26</p>
+        </div>
+      </div>
+      
+      <!-- Back to Technical View Link -->
+      <a href="index.html" style="font-size: 0.8rem; color: var(--text-secondary); text-decoration: none; border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 8px; background: rgba(255,255,255,0.02); transition: var(--transition-smooth);" onmouseover="this.style.borderColor='var(--color-pilot)'" onmouseout="this.style.borderColor='var(--border-color)'">
+        <i class="fa-solid fa-code"></i> Visualização Técnica
+      </a>
+    </header>
+
+    <!-- Main Grid: Simulation & App vs Sprints -->
+    <main class="main-grid" style="grid-template-columns: 1.1fr 0.9fr;">
+      
+      <!-- Left Column: Incident Flow Simulator & Details -->
+      <section class="architecture-panel" aria-labelledby="simulator-section-title">
+        <div class="panel-header">
+          <div>
+            <h2 class="panel-title" id="simulator-section-title">
+              <i class="fa-solid fa-circle-play"></i> Simulador de Jornada
+            </h2>
+            <p class="panel-subtitle">Veja passo a passo o que acontece na fazenda e na nuvem até o alerta disparar no seu bolso.</p>
+          </div>
+        </div>
+
+        <!-- Simulation Trigger Button -->
+        <div class="sim-trigger-container">
+          <button class="btn-primary" id="start-sim-btn">
+            <i class="fa-solid fa-play"></i> Simular Alerta de Invasão
+          </button>
+        </div>
+
+        <!-- Playful Steps list -->
+        <div class="sim-flow-container">
+          <div class="sim-step" data-step="cameras" onclick="showBusinessDetails('cameras')">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <span class="step-title">📹 Câmeras de Vigilância</span>
+              <p class="step-desc">As câmeras locais capturam imagens brutas continuamente, de forma offline e privada.</p>
+            </div>
+          </div>
+          
+          <div class="sim-step" data-step="edge" onclick="showBusinessDetails('edge')">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <span class="step-title">🧠 Cérebro Local IA (Nó Edge)</span>
+              <p class="step-desc">O computador local da fazenda roda a IA para filtrar poeira e animais, identificando ameaças reais.</p>
+            </div>
+          </div>
+
+          <div class="sim-step" data-step="nodered" onclick="showBusinessDetails('nodered')">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <span class="step-title">📦 Fatiador & Envio Criptografado</span>
+              <p class="step-desc">Se houver invasão, recorta 5 segundos de clipe e envia de forma compacta e blindada (TLS).</p>
+            </div>
+          </div>
+
+          <div class="sim-step" data-step="kafka" onclick="showBusinessDetails('kafka')">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <span class="step-title">☁️ Distribuidor Cloud (Kafka)</span>
+              <p class="step-desc">O servidor em nuvem centraliza os eventos das 14 filiais, armazena no banco e repassa em milissegundos.</p>
+            </div>
+          </div>
+
+          <div class="sim-step" data-step="app_flutter" onclick="showBusinessDetails('app_flutter')">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <span class="step-title">📱 Seu App Mobile Unificado</span>
+              <p class="step-desc">Você recebe o alerta push no celular. Assista o clipe em loop e veja os gráficos de auditoria de dados.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Translated Details Panel -->
+        <div class="details-panel-container" style="margin-top: 1rem;">
+          <div class="details-panel" id="details-panel">
+            <div class="details-header" style="border-bottom-color: rgba(255,255,255,0.05);">
+              <h3 class="details-title" id="details-title" style="color: var(--color-pilot);">Selecione um passo do fluxo</h3>
+              <span class="details-badge" id="details-badge" style="background: rgba(16, 185, 129, 0.1); color: var(--color-pilot);">PRODUTO</span>
+            </div>
+            
+            <p class="details-desc" id="details-desc" style="font-size: 0.85rem; color: var(--text-secondary);">
+              Selecione uma etapa do simulador para ver os benefícios de negócio do nosso motor analítico.
+            </p>
+            
+            <div class="details-meta" id="details-meta-container" style="grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));">
+              <!-- Metadados amigáveis -->
+            </div>
+            
+            <h4 class="details-list-title" style="font-size: 0.75rem;">O que isso significa de valor?</h4>
+            <ul class="details-list" id="details-list" style="font-size: 0.8rem;">
+              <!-- Benefícios para negócios -->
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Smartphone Mockup & Consolidated Sprints -->
+      <div style="display: flex; flex-direction: column; gap: 2rem;">
+        
+        <!-- Smartphone Mockup Panel -->
+        <section class="architecture-panel" style="min-height: auto;" aria-labelledby="smartphone-section-title">
+          <div class="panel-header" style="border-bottom: none; padding-bottom: 0.25rem;">
+            <h2 class="panel-title" id="smartphone-section-title">
+              <i class="fa-solid fa-mobile"></i> Aplicativo na Prática
+            </h2>
+          </div>
+          
+          <div class="phone-mockup-wrapper">
+            <!-- Simulated Smartphone -->
+            <div class="phone-mockup">
+              <div class="phone-notch"><div class="phone-speaker"></div></div>
+              <div class="phone-home-bar"></div>
+              
+              <!-- Screen container -->
+              <div class="phone-screen">
+                
+                <!-- Mock Push Notification (Triggered by JS) -->
+                <div class="phone-push-notification" id="mock-push-notification">
+                  <div class="push-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                  <div class="push-text">
+                    <span class="push-title">ALERTA DE SEGURANÇA</span>
+                    <span class="push-body">Invasão detectada: Pátio 3 — Lucas do Rio Verde/MT. Toque para ver o vídeo.</span>
+                  </div>
+                </div>
+
+                <!-- Phone Content Area -->
+                <div id="phone-screen-content" style="height: 100%;">
+                  <!-- Start State -->
+                  <div style="height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center; color:rgba(255,255,255,0.4); text-align:center; padding: 2rem;">
+                    <i class="fa-solid fa-lock" style="font-size: 2.5rem; margin-bottom:1rem;"></i>
+                    <p style="font-size:0.85rem;">Aguardando ocorrências nas 14 filiais da planta...</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Sprints Timeline (Mobile Unification) -->
+        <section class="roadmap-panel" aria-labelledby="sprints-section-title" style="max-height: 520px;">
+          <div class="panel-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 1rem;">
+            <div>
+              <h2 class="panel-title" id="sprints-section-title">
+                <i class="fa-solid fa-timeline"></i> Cronograma de Sprints (Consolidado)
+              </h2>
+              <p class="panel-subtitle">Toda a interface unificada e integrada no aplicativo móvel.</p>
+            </div>
+          </div>
+
+          <!-- Phase Selectors for Sprints -->
+          <nav class="phase-selector" role="tablist" style="margin-bottom: 1rem;">
+            <button class="phase-tab active" data-phase="piloto" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Piloto</button>
+            <button class="phase-tab" data-phase="fase2" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fase 2</button>
+            <button class="phase-tab" data-phase="fase3" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fase 3</button>
+          </nav>
+
+          <!-- Sprints List Container -->
+          <div class="sprint-list" id="sprint-list-container">
+            <!-- Sprints injetadas via script_apresentacao.js -->
+          </div>
+        </section>
+
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>Desenvolvido para Ecodiesel (Grupo Cortezia Agro) &copy; 2026. Techlead: Lucas Chavatta — GBPA.</p>
+      <p style="font-size: 0.7rem; margin-top: 0.35rem; color: var(--text-muted);">
+        Esta visualização comercial foca nos fluxos lúdicos e na visualização consolidada via aplicativo móvel (iOS/Android).
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript links -->
+  <script src="script_apresentacao.js"></script>
+</body>
+</html>
