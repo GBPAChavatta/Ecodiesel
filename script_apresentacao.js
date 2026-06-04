@@ -6,9 +6,9 @@ const presentationSprints = {
       tag: "Sprint 1.1",
       weeks: "Semanas 1-2",
       name: "Setup Edge & Ingestão das Câmeras (Matriz)",
-      hours: "80h",
+      hours: "100h",
       front: "DevOps & IA de Borda",
-      summary: "Mapeamento das 32 câmeras da matriz da Ecodiesel, instalação do sistema operacional no servidor edge local e configuração do Frigate NVR com detecção local acelerada via GPU.",
+      summary: "Mapeamento das 32 câmeras da matriz da Ecodiesel, instalação do sistema operacional no servidor edge local e configuração do Frigate NVR com detecção local acelerada via GPU de Contenção (RTX 5060 Ti).",
       userStories: [
         {
           title: "Infraestrutura Física de Borda",
@@ -23,9 +23,9 @@ const presentationSprints = {
         { desc: "Mapeamento físico de switches, VLANs e catalogação de chaves RTSP", est: "20h" },
         { desc: "Setup do Ubuntu Server 24.04, drivers CUDA/NVIDIA e Docker daemon", est: "10h" },
         { desc: "Configuração do Frigate NVR para ingestão das 32 câmeras da matriz", est: "20h" },
-        { desc: "Compilação da engine TensorRT do YOLOv8n em FP16 (inferência <15ms)", est: "15h" },
-        { desc: "Parametrização do algoritmo de rastreamento ByteTrack local", est: "12h" },
-        { desc: "Ajuste físico de estabilidade e refrigeração do nó piloto", est: "3h" }
+        { desc: "Compilação da engine TensorRT do YOLOv8n em INT8 para RTX 5060 Ti", est: "15h" },
+        { desc: "Parametrização do algoritmo de rastreamento ByteTrack local", est: "25h" },
+        { desc: "Ajuste físico de estabilidade e refrigeração do nó piloto", est: "10h" }
       ]
     },
     {
@@ -33,7 +33,7 @@ const presentationSprints = {
       tag: "Sprint 1.2",
       weeks: "Semanas 3-4",
       name: "Motor de Regras & Painel Web Local",
-      hours: "80h",
+      hours: "100h",
       front: "Backend & Front Local",
       summary: "Desenvolvimento da lógica analítica FastAPI (tempo de permanência, ROIs) e criação de um Dashboard simplificado acessível apenas na rede local via SSE para homologação rápida.",
       userStories: [
@@ -47,9 +47,9 @@ const presentationSprints = {
         }
       ],
       tasks: [
-        { desc: "Codificação do Motor de Regras FastAPI (ROIs e permanência >2s)", est: "20h" },
-        { desc: "Setup de persistência SQLite e rotina automática de expurgo (30 dias)", est: "15h" },
-        { desc: "Desenho da interface web do painel local usando Server-Sent Events", est: "25h" },
+        { desc: "Codificação do Motor de Regras FastAPI (ROIs e permanência >2s)", est: "30h" },
+        { desc: "Setup de persistência SQLite e rotina automática de expurgo (30 dias)", est: "20h" },
+        { desc: "Desenho da interface web do painel local usando Server-Sent Events", est: "30h" },
         { desc: "Calibração dos limiares de acurácia sob poeira e faróis de veículos", est: "12h" },
         { desc: "Testes de homologação do piloto e encerramento de fase", est: "8h" }
       ]
@@ -99,7 +99,7 @@ const presentationSprints = {
       tag: "Sprint 2.3",
       weeks: "Semanas 5-6",
       name: "Infraestrutura como Código com Ansible",
-      hours: "90h",
+      hours: "130h",
       front: "SRE / Infra",
       summary: "Criar playbooks e scripts automatizados no Ansible para inicializar os servidores edge locais de forma plug-and-play nas filiais.",
       userStories: [
@@ -109,8 +109,8 @@ const presentationSprints = {
         }
       ],
       tasks: [
-        { desc: "Escrever playbooks Ansible para instalação de drivers NVIDIA, CUDA e Docker", est: "50h" },
-        { desc: "Testar provisionamento em lote em servidores simulados no laboratório", est: "40h" }
+        { desc: "Escrever playbooks Ansible para instalação de drivers NVIDIA, CUDA e Docker", est: "70h" },
+        { desc: "Testar provisionamento em lote em servidores simulados no laboratório", est: "60h" }
       ]
     },
     {
@@ -118,7 +118,7 @@ const presentationSprints = {
       tag: "Sprint 2.4",
       weeks: "Semanas 7-8",
       name: "ArgoCD GitOps & Pipelines de Imagens",
-      hours: "110h",
+      hours: "125h",
       front: "DevOps / CI-CD",
       summary: "Instalar o ArgoCD para gerenciar configurações baseadas no repositório de código Git e automatizar a build de novos contêineres de IA.",
       userStories: [
@@ -128,8 +128,8 @@ const presentationSprints = {
         }
       ],
       tasks: [
-        { desc: "Configurar cluster central ArgoCD e mapeamento Kustomize (14 filiais)", est: "60h" },
-        { desc: "Desenvolver pipelines de CI/CD para compilação automática das imagens Docker", est: "50h" }
+        { desc: "Configurar cluster central ArgoCD e mapeamento Kustomize (14 filiais)", est: "70h" },
+        { desc: "Desenvolver pipelines de CI/CD para compilação automática das imagens Docker", est: "55h" }
       ]
     },
     {
@@ -137,7 +137,7 @@ const presentationSprints = {
       tag: "Sprint 2.5",
       weeks: "Semanas 9-10",
       name: "Novo Detector de IA: Uso de EPIs",
-      hours: "120h",
+      hours: "160h",
       front: "IA & Visão",
       summary: "Coleta e rotulagem de fotos de campo, treinamento do modelo YOLOv8-EPI para Segurança do Trabalho e exportação para aceleração TensorRT.",
       userStories: [
@@ -147,8 +147,8 @@ const presentationSprints = {
         }
       ],
       tasks: [
-        { desc: "Coleta e rotulagem de dataset de EPIs sob sol intenso e poeira", est: "80h" },
-        { desc: "Treinamento YOLOv8-EPI e compilação em engine TensorRT FP16 (.engine)", est: "40h" }
+        { desc: "Coleta e rotulagem de dataset de EPIs sob sol intenso e poeira", est: "100h" },
+        { desc: "Treinamento YOLOv8-EPI e compilação em engine TensorRT FP16 (.engine)", est: "60h" }
       ]
     },
     {
@@ -156,7 +156,7 @@ const presentationSprints = {
       tag: "Sprint 2.6",
       weeks: "Semanas 11-12",
       name: "Lógica de Negócios e Filtro de Falsos Alertas de EPI",
-      hours: "110h",
+      hours: "120h",
       front: "IA & Backend",
       summary: "Configuração do FastAPI local para processar concorrência de modelos YOLO e calibrar filtros de tempo mínimo de permanência sem EPI.",
       userStories: [
@@ -166,8 +166,8 @@ const presentationSprints = {
         }
       ],
       tasks: [
-        { desc: "Modificar regras no FastAPI local para suportar thresholds temporais de EPI", est: "60h" },
-        { desc: "Calibrar thresholds de confiança de IA sob condições reais de seca e chuva", est: "50h" }
+        { desc: "Modificar regras no FastAPI local para suportar thresholds temporais de EPI", est: "65h" },
+        { desc: "Calibrar thresholds de confiança de IA sob condições reais de seca e chuva", est: "55h" }
       ]
     },
     {
@@ -194,7 +194,7 @@ const presentationSprints = {
       tag: "Sprint 2.8",
       weeks: "Semanas 15-16",
       name: "Rollout Físico e Integração das 14 Filiais",
-      hours: "180h",
+      hours: "220h",
       front: "SRE / QA",
       summary: "Acompanhar a instalação física das máquinas edge nos racks locais das filiais, rodar bootstrap e homologar a resiliência offline.",
       userStories: [
@@ -204,9 +204,9 @@ const presentationSprints = {
         }
       ],
       tasks: [
-        { desc: "Instalação física e bootstrap das 14 filiais via VPN", est: "100h" },
-        { desc: "Sincronização de ConfigMaps globais no ArgoCD e teste de resiliência offline (SQLite)", est: "40h" },
-        { desc: "Homologação geral de implantação física e testes de carga", est: "40h" }
+        { desc: "Instalação física e bootstrap das 14 filiais via VPN", est: "120h" },
+        { desc: "Sincronização de ConfigMaps globais no ArgoCD e teste de resiliência offline (SQLite)", est: "50h" },
+        { desc: "Homologação geral de implantação física e testes de carga", est: "50h" }
       ]
     }
   ],
@@ -338,7 +338,7 @@ const presentationSprints = {
       name: "Telemetria de Frota & Métricas de IA",
       hours: "115h",
       front: "DevOps & IA",
-      summary: "Instrumentar sensores térmicos e elétricos das GPUs industriais de campo via Prometheus e expor no Grafana corporativo com alertas Teams.",
+      summary: "Instrumentar sensores térmicos e elétricos da GPU de Contenção (RTX 5060 Ti) de campo via Prometheus e expor no Grafana corporativo com alertas Teams.",
       userStories: [
         {
           title: "Monitoramento de Saúde de Servidores",
@@ -398,8 +398,8 @@ const businessDetails = {
     badge: "Etapa 2: Inteligência na Borda",
     desc: "O supercomputador instalado no rack físico da filial analisa os vídeos em tempo real. Rodando visão computacional de ponta (YOLOv8 + TensorRT), ele filtra insetos, galhos e poeira, detectando com precisão o que de fato importa.",
     meta: {
-      "Hardware Homologado": "AMD Ryzen 9 + 2x RTX 5070 Ti",
-      "Eficiência de IA": "Inferência em <15ms por quadro",
+      "Hardware Homologado": "AMD Ryzen 5 + RTX 5060 Ti (Lote)",
+      "Eficiência de IA": "Bursts em lote a cada 5-10 min",
       "Autonomia": "100% offline (caso falhe internet)",
       "Design Térmico": "Industrial contra poeira e poços térmicos"
     },
