@@ -123,9 +123,33 @@
         </div>
       </section>
 
-      <!-- Right Column: Smartphone Mockup & Consolidated Sprints -->
+      <!-- Right Column: Consolidated Sprints & Smartphone Mockup -->
       <div style="display: flex; flex-direction: column; gap: 2rem;">
         
+        <!-- Sprints Timeline (Mobile Unification) -->
+        <section class="roadmap-panel" aria-labelledby="sprints-section-title" style="max-height: 520px;">
+          <div class="panel-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 1rem;">
+            <div>
+              <h2 class="panel-title" id="sprints-section-title">
+                <i class="fa-solid fa-timeline"></i> Cronograma de Sprints (Consolidado)
+              </h2>
+              <p class="panel-subtitle">Toda a interface unificada e integrada no aplicativo móvel.</p>
+            </div>
+          </div>
+
+          <!-- Phase Selectors for Sprints -->
+          <nav class="phase-selector" role="tablist" style="margin-bottom: 1rem;">
+            <button class="phase-tab active" data-phase="piloto" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Piloto</button>
+            <button class="phase-tab" data-phase="fase2" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fase 2</button>
+            <button class="phase-tab" data-phase="fase3" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fase 3</button>
+          </nav>
+
+          <!-- Sprints List Container -->
+          <div class="sprint-list" id="sprint-list-container">
+            <!-- Sprints injetadas via script_apresentacao.js -->
+          </div>
+        </section>
+
         <!-- Smartphone Mockup Panel -->
         <section class="architecture-panel" style="min-height: auto;" aria-labelledby="smartphone-section-title">
           <div class="panel-header" style="border-bottom: none; padding-bottom: 0.25rem;">
@@ -163,30 +187,6 @@
 
               </div>
             </div>
-          </div>
-        </section>
-
-        <!-- Sprints Timeline (Mobile Unification) -->
-        <section class="roadmap-panel" aria-labelledby="sprints-section-title" style="max-height: 520px;">
-          <div class="panel-header" style="border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding-bottom: 1rem;">
-            <div>
-              <h2 class="panel-title" id="sprints-section-title">
-                <i class="fa-solid fa-timeline"></i> Cronograma de Sprints (Consolidado)
-              </h2>
-              <p class="panel-subtitle">Toda a interface unificada e integrada no aplicativo móvel.</p>
-            </div>
-          </div>
-
-          <!-- Phase Selectors for Sprints -->
-          <nav class="phase-selector" role="tablist" style="margin-bottom: 1rem;">
-            <button class="phase-tab active" data-phase="piloto" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Piloto</button>
-            <button class="phase-tab" data-phase="fase2" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fase 2</button>
-            <button class="phase-tab" data-phase="fase3" role="tab" style="padding: 0.5rem 1rem; font-size: 0.85rem;">Fase 3</button>
-          </nav>
-
-          <!-- Sprints List Container -->
-          <div class="sprint-list" id="sprint-list-container">
-            <!-- Sprints injetadas via script_apresentacao.js -->
           </div>
         </section>
 

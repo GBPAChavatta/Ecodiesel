@@ -260,7 +260,10 @@ header {
 
 @media (max-width: 1200px) {
   .main-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+  }
+  .roadmap-panel {
+    order: -1;
   }
 }
 

@@ -6,7 +6,7 @@ const presentationSprints = {
       tag: "Sprint 1.1",
       weeks: "Semanas 1-2",
       name: "Setup Edge & Ingestão das Câmeras (Matriz)",
-      hours: "100h",
+      hours: "80h",
       front: "DevOps & IA de Borda",
       summary: "Mapeamento das 32 câmeras da matriz da Ecodiesel, instalação do sistema operacional no servidor edge local e configuração do Frigate NVR com detecção local acelerada via GPU de Contenção (RTX 5060 Ti).",
       userStories: [
@@ -24,32 +24,49 @@ const presentationSprints = {
         { desc: "Setup do Ubuntu Server 24.04, drivers CUDA/NVIDIA e Docker daemon", est: "10h" },
         { desc: "Configuração do Frigate NVR para ingestão das 32 câmeras da matriz", est: "20h" },
         { desc: "Compilação da engine TensorRT do YOLOv8n em INT8 para RTX 5060 Ti", est: "15h" },
-        { desc: "Parametrização do algoritmo de rastreamento ByteTrack local", est: "25h" },
-        { desc: "Ajuste físico de estabilidade e refrigeração do nó piloto", est: "10h" }
+        { desc: "Ajuste físico de estabilidade e refrigeração do nó piloto", est: "15h" }
       ]
     },
     {
       id: "MVP-P2",
       tag: "Sprint 1.2",
       weeks: "Semanas 3-4",
-      name: "Motor de Regras & Painel Web Local",
-      hours: "100h",
-      front: "Backend & Front Local",
-      summary: "Desenvolvimento da lógica analítica FastAPI (tempo de permanência, ROIs) e criação de um Dashboard simplificado acessível apenas na rede local via SSE para homologação rápida.",
+      name: "Rastreamento ByteTrack, Motor de Regras & Persistência",
+      hours: "80h",
+      front: "IA & Backend Local",
+      summary: "Parametrização do tracker ByteTrack para manter identidade de invasores no pátio, codificação do motor de regras FastAPI (ROIs + permanência) e setup da persistência local com SQLite e expurgo automático (LGPD).",
       userStories: [
+        {
+          title: "Rastreamento Confiável de Invasores",
+          text: "Como analista de IA, quero o ByteTrack rodando no pipeline para que o mesmo invasor mantenha a mesma identidade ao se mover entre câmeras do pátio."
+        },
         {
           title: "Lógica de Exclusão de Falsos Alertas",
           text: "Como operador local, quero definir polígonos de exclusão (ROIs) no FastAPI para evitar que animais e vento gerem alarmes falsos de invasão."
-        },
+        }
+      ],
+      tasks: [
+        { desc: "Parametrização do algoritmo de rastreamento ByteTrack local", est: "25h" },
+        { desc: "Codificação do Motor de Regras FastAPI (ROIs e permanência >2s)", est: "30h" },
+        { desc: "Setup de persistência SQLite e rotina automática de expurgo (30 dias)", est: "25h" }
+      ]
+    },
+    {
+      id: "MVP-P3",
+      tag: "Sprint 1.3",
+      weeks: "Semanas 5-6",
+      name: "Painel Web Local, Calibração & Homologação",
+      hours: "40h",
+      front: "Frontend Local & QA",
+      summary: "Sprint final com as horas excedentes do Piloto (40h): construção do painel web local via SSE, calibração de limiares de acurácia em campo e encerramento de fase com homologação junto ao cliente Fernando.",
+      userStories: [
         {
           title: "Visualizador de Homologação",
           text: "Como Fernando (representante Ecodiesel), quero acessar um link local de navegador que emita alertas e sons no pátio da matriz em menos de 5 segundos."
         }
       ],
       tasks: [
-        { desc: "Codificação do Motor de Regras FastAPI (ROIs e permanência >2s)", est: "30h" },
-        { desc: "Setup de persistência SQLite e rotina automática de expurgo (30 dias)", est: "20h" },
-        { desc: "Desenho da interface web do painel local usando Server-Sent Events", est: "30h" },
+        { desc: "Desenho da interface web do painel local usando Server-Sent Events", est: "20h" },
         { desc: "Calibração dos limiares de acurácia sob poeira e faróis de veículos", est: "12h" },
         { desc: "Testes de homologação do piloto e encerramento de fase", est: "8h" }
       ]

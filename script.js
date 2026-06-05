@@ -5,9 +5,9 @@ const sprintData = {
       id: "MVP-1",
       tag: "Sprint 1.1",
       weeks: "Semanas 1-2",
-      name: "Ingestão, Image Proxy & Pipeline de IA",
-      hours: "100h",
-      front: "IA / Visão & DevOps",
+      name: "Setup Edge, Ingestão das Câmeras & Image Proxy",
+      hours: "80h",
+      front: "DevOps & IA de Borda",
       summary: "Mapear câmeras da matriz, preparar OS com CUDA, subir Frigate com NVDEC e implementar o Image Proxy com pHash nativo, skip rate e SQLite WAL — base do pipeline otimizado de baixo consumo.",
       userStories: [
         {
@@ -24,37 +24,54 @@ const sprintData = {
         { desc: "Preparação do OS Ubuntu Server 24.04, drivers NVIDIA, CUDA Toolkit e uvloop", est: "10h" },
         { desc: "Setup do NVR Frigate com decodificação por hardware (NVDEC)", est: "20h" },
         { desc: "Image Proxy: pHash nativo (sem PIL), ROI motion score, deque O(1), SQLite WAL", est: "18h" },
-        { desc: "Compilação e validação do YOLOv8n em engine TensorRT FP16/INT8", est: "15h" },
-        { desc: "Integração do tracker ByteTrack no pipeline local de inferência", est: "12h" },
-        { desc: "Ajuste e contingência física em campo (Lucas do Rio Verde/MT)", est: "5h" }
+        { desc: "Ajuste e contingência física em campo (Lucas do Rio Verde/MT)", est: "12h" }
       ]
     },
     {
       id: "MVP-2",
       tag: "Sprint 1.2",
       weeks: "Semanas 3-4",
-      name: "Motor de Regras, Redis Streams & Dashboard Local",
-      hours: "100h",
-      front: "Backend & Frontend",
-      summary: "FastAPI com regras de ROI, fila persistente em Redis Streams com backpressure, AsyncBatchLogger e dashboard local SPA com SSE. Benchmark E2E antes/depois entregue ao cliente Fernando.",
+      name: "IA Pipeline (TensorRT + ByteTrack), Motor de Regras & Fila Redis",
+      hours: "80h",
+      front: "IA / Visão & Backend",
+      summary: "Compilar YOLOv8n em TensorRT, integrar ByteTrack, implementar o motor de regras FastAPI (ROIs + permanência) e subir a fila persistente Redis Streams com AsyncBatchLogger e SQLite WAL.",
       userStories: [
+        {
+          title: "Pipeline de IA Otimizado",
+          text: "Como engenheiro de IA, quero o YOLOv8n compilado em TensorRT com tracker ByteTrack rodando na borda local para detectar e rastrear pessoas e veículos em tempo real."
+        },
         {
           title: "Motor de Regras e Fila Resiliente",
           text: "Como operador da matriz, quero regras de ROI e permanência no FastAPI com fila em Redis Streams (com backpressure) e SQLite WAL para persistência offline."
-        },
+        }
+      ],
+      tasks: [
+        { desc: "Compilação e validação do YOLOv8n em engine TensorRT FP16/INT8", est: "15h" },
+        { desc: "Integração do tracker ByteTrack no pipeline local de inferência", est: "12h" },
+        { desc: "FastAPI Local: regras de ROIs com polígonos e tempo de permanência", est: "20h" },
+        { desc: "Setup Redis Streams com consumer groups e backpressure (substituindo lpush/rpop)", est: "15h" },
+        { desc: "AsyncBatchLogger com SQLite WAL e cronjob de expurgo de mídias (30 dias LGPD)", est: "18h" }
+      ]
+    },
+    {
+      id: "MVP-3",
+      tag: "Sprint 1.3",
+      weeks: "Semanas 5-6",
+      name: "Dashboard Local, Calibração de Acurácia & Homologação",
+      hours: "40h",
+      front: "Backend & Frontend",
+      summary: "Sprint final com horas excedentes do Piloto: entregar dashboard SPA local via SSE, calibrar acurácia em campo, gerar benchmark E2E (antes/depois) e fazer a homologação com o cliente Fernando.",
+      userStories: [
         {
           title: "Dashboard e Benchmark de Validação",
           text: "Como equipe de monitoramento, quero alertas em <5s no dashboard local (SSE) e um relatório de benchmark E2E comprovando a redução de carga antes/depois das otimizações."
         }
       ],
       tasks: [
-        { desc: "FastAPI Local: regras de ROIs com polígonos e tempo de permanência", est: "20h" },
-        { desc: "Setup Redis Streams com consumer groups e backpressure (substituindo lpush/rpop)", est: "12h" },
-        { desc: "AsyncBatchLogger com SQLite WAL e cronjob de expurgo de mídias (30 dias LGPD)", est: "10h" },
-        { desc: "Dashboard SPA local em HTML/JS com SSE (Server-Sent Events)", est: "25h" },
-        { desc: "Calibração de acurácia de IA e thresholds do Proxy em campo (poeira, faróis)", est: "15h" },
+        { desc: "Dashboard SPA local em HTML/JS com SSE (Server-Sent Events)", est: "15h" },
+        { desc: "Calibração de acurácia de IA e thresholds do Proxy em campo (poeira, faróis)", est: "10h" },
         { desc: "Benchmark E2E antes/depois (CPU%, latência P95, skip rate) — relatório para Fernando", est: "10h" },
-        { desc: "Homologação ponta a ponta com o cliente Fernando e handover", est: "8h" }
+        { desc: "Homologação ponta a ponta com o cliente Fernando e handover", est: "5h" }
       ]
     }
   ],
@@ -674,8 +691,8 @@ const architectureDetails = {
 // KPIs consolidados por fase (revisado com otimizações e 440 câmeras)
 const phaseKpis = {
   piloto: {
-    duration: "4 semanas (1 mês)",
-    sprints: "2 Sprints",
+    duration: "6 semanas (1,5 mês)",
+    sprints: "3 Sprints",
     effort: "200 horas",
     buffer: "15% contingência",
     cameras: "32 câmeras (matriz)",
